@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     views: {
       type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    likes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
     },
     fireURL: {
       type: DataTypes.STRING,
@@ -21,9 +26,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     scrubImages: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-    },
-    time: {
-      type: DataTypes.DATEONLY,
     },
     url: {
       type: DataTypes.VIRTUAL,

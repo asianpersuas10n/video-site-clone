@@ -22,10 +22,13 @@ router.post("/create", video_controller.createVideoPost);
 router.put("/likes", video_controller.videoLikeIncrement);
 
 // PUT request for decrementing likes
-router.put("/dislike", video_controller.videoLikeDecrement);
+router.put("/dislikes", video_controller.videoLikeDecrement);
 
 // PUT request for incrementing views
 router.put("/views", video_controller.videoViewIncrement);
+
+// PUT request for changing the thumbnail
+router.put("/update/thumbnail", video_controller.videoThumbnailUpdate);
 
 // PUT request for updating a video
 router.put("/update/:id", video_controller.videoUpdate);

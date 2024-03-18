@@ -52,6 +52,9 @@ exports.createVideoPost = [
       await Video.create({
         title: req.body.title,
         description: req.body.description,
+        thumbnail: req.body.thumbnail,
+        duration: req.body.duration,
+        fireURL: req.body.fireURL,
       });
       res.json("video created");
       // no redirect res.redirect(video.url);
