@@ -59,7 +59,40 @@ exports.createVideoPost = [
   }),
 ];
 
-// PUT request to update a video
+/*
+ *
+ * likes will probably have to be robust and need their own model
+ *
+ */
+
+// PUT request to increment a videos likes
+exports.videoLikeIncrement = asyncHandler(async (req, res) => {
+  await Video.increment({ likes: 1 }, { where: { id: req.body.id } });
+  res.json("incremented likes");
+});
+
+// PUT request to decrament a videos likes
+exports.videoLikeDecrement = asyncHandler(async (req, res) => {
+  await Video.increment({ likes: -1 }, { where: { id: req.body.id } });
+  res.json("decremented likes");
+});
+
+// PUT request to increment a videos views
+exports.videoViewIncrement = asyncHandler(async (req, res) => {
+  await Video.increment({ views: 1 }, { where: { id: req.body.id } });
+  res.json("incremented views");
+});
+
+// PUT request to update a thumbnail
+exports.videoThumbnailUpdate = asyncHandler(async (req, res) => {
+  await Video.update(
+    { thumbnail: req.body.thumbnail },
+    { where: { id: req.body.id } }
+  );
+  res.json(`Updated thumbnail to ${req.body.thumbnail}`);
+});
+
+// PUT request to update a video title and description
 exports.videoUpdate = asyncHandler(async (req, res) => {
   /*
    *

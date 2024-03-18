@@ -12,6 +12,21 @@ router.get("/:id", video_controller.videoDetail);
 // POST request for creating a video
 router.post("/create", video_controller.createVideoPost);
 
+/*
+ *
+ * likes will probably have to be robust and need their own model
+ *
+ */
+
+// PUT request for incrementing likes
+router.put("/likes", video_controller.videoLikeIncrement);
+
+// PUT request for decrementing likes
+router.put("/dislike", video_controller.videoLikeDecrement);
+
+// PUT request for incrementing views
+router.put("/views", video_controller.videoViewIncrement);
+
 // PUT request for updating a video
 router.put("/update/:id", video_controller.videoUpdate);
 
