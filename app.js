@@ -7,29 +7,27 @@ const logger = require("morgan");
 
 // requiring routes
 /* kept for reference
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
-*/
+const indexRouter = require("./routes/index");*/
+const videoRouter = require("./Routes/videos");
 
 const app = express();
 
 // middleware
-app.use(logger("dev"));
 app.use(express.json());
+app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // routes here
 /* kept for reference
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-*/
+app.use("/", indexRouter);*/
+app.use("/video", videoRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+/*app.use(function (req, res, next) {
   next(createError(404));
-});
+});*/
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -39,7 +37,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.json({ error: "error" });
 });
 
 // calls for the database
