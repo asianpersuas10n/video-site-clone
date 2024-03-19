@@ -4,17 +4,8 @@ const db = require("../Models");
 const Video = db.Video;
 const User = db.User;
 
-/*
- * example
- * exports.whatItsFor = asyncHandler(async(req, res) => {
- *  some sequelize query here
- *  res.json(whatever you needed to get here)
- * })
- */
-
 // GET request for all for the home page
 exports.getHomeVideos = asyncHandler(async (req, res) => {
-  console.log("test");
   const allVideos = await Video.findAll({ include: User }); // need to rewrite to be pagination call 30 at a time
   res.json(allVideos);
 });

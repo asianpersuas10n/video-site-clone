@@ -8,6 +8,7 @@ const logger = require("morgan");
 // requiring routes
 /* kept for reference
 const indexRouter = require("./routes/index");*/
+const userRouter = require("./Routes/user");
 const videoRouter = require("./Routes/videos");
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // routes here
 /* kept for reference
 app.use("/", indexRouter);*/
+app.use("/user", userRouter);
 app.use("/video", videoRouter);
 
 // catch 404 and forward to error handler
