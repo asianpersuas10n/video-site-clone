@@ -11,6 +11,8 @@ const User = db.User;
  * })
  */
 
+// probably
+
 // POST request for creating a user
 exports.createUser = asyncHandler(async (req, res) => {
   const body = req.body;
@@ -30,8 +32,25 @@ exports.updateUser = asyncHandler(async (req, res) => {
   res.json(`photoURL updated to ${body.photoURL}`);
 });
 
+// PUT request to subscribe to another user.
+exports.subsribeToUser = asyncHandler(async (req, res) => {
+  const subscribedUser = await User.findOne({
+    where: { id: req.body.subscribedUser.id },
+  });
+  const subscribingUser = await User.findOne({
+    where: { id: req.body.subscribingUser.id },
+  });
+  await subscribedUser.addSubscribers(subscribingUser);
+  res.json(
+    `${subscribingUser.displayName} has subscribed to ${subscribedUser.displayName}`
+  );
+});
+
 // GET request for getting a user
 exports.getUser = asyncHandler(async (req, res) => {
-  const user = await User.findOne({ where: { id: req.url } });
+  const user = await User.findOne({
+    where: { id: req.url.replace("/", "") },
+    include: { all: true },
+  });
   res.json(user);
 });

@@ -22,11 +22,23 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.associate = function (models) {
-    User.hasMany(models.Video);
+    User.hasMany(models.Video, {
+      foreignKey: "uploadedVideoID",
+      as: "uploadedVideo",
+    });
+    User.hasMany(models.Video, { foreignKey: "likesID", as: "likes" });
+    User.hasMany(models.Video, { foreignKey: "dislikesID", as: "dislikes" });
     User.hasMany(models.Comment);
-    User.hasMany(models.CommentReplies);
-    User.hasMany(models.Subscription);
-    User.hasMany(models.Subscriber);
+    User.hasMany(User, {
+      foreignKey: "subscriber",
+      as: "subscribers",
+      sourceKey: "id",
+    });
+    User.belongsTo(User, {
+      foreignKey: "subscriber",
+      as: "subscription",
+      targetKey: "id",
+    });
   };
 
   return User;

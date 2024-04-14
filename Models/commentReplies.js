@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   });
-
+  /*
   CommentReplies.associate = function (models) {
     CommentReplies.belongsTo(models.Comment);
     CommentReplies.belongsTo(models.User);
   };
-
+*/
   return CommentReplies;
 };

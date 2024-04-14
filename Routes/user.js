@@ -13,6 +13,9 @@ router.get("/:id", user_controller.getUser);
 router.post("/create", user_controller.createUser);
 
 // PUT request for updating profile picture
-router.post("/update", user_controller.updateUser);
+router.put("/update", user_controller.updateUser);
+
+// PUT request for updating profile picture
+router.put("/subscribe", user_controller.subsribeToUser);
 
 module.exports = router;

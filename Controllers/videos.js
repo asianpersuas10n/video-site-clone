@@ -46,6 +46,7 @@ exports.createVideoPost = [
         thumbnail: req.body.thumbnail,
         duration: req.body.duration,
         fireURL: req.body.fireURL,
+        UserId: req.body.UserId,
       });
       res.json("video created");
       // no redirect res.redirect(video.url);
@@ -106,7 +107,7 @@ exports.videoUpdate = asyncHandler(async (req, res) => {
   );
 });
 
-// Delete request to delete a video
+// DELETE request to delete a video
 exports.deleteVideo = asyncHandler(async (req, res) => {
   /*
    *

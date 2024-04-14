@@ -13,10 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   });
-
+  /*
   Subscriber.associate = function (models) {
     Subscriber.belongsTo(models.User);
   };
-
+*/
   return Subscriber;
 };
