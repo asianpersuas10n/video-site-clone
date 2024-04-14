@@ -35,18 +35,22 @@ exports.createVideoPost = [
     .escape(),
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
+    const body = req.body;
 
     if (!errors.isEmpty()) {
       res.json("error was made");
       return;
     } else {
+      const user = await User.findOne({ where: { id: body.user.id } });
       await Video.create({
-        title: req.body.title,
-        description: req.body.description,
-        thumbnail: req.body.thumbnail,
-        duration: req.body.duration,
-        fireURL: req.body.fireURL,
-        UserId: req.body.UserId,
+        title: body.title,
+        description: body.description,
+        thumbnail: body.thumbnail,
+        duration: body.duration,
+        fireURL: body.fireURL,
+        UserId: body.UserId,
+      }).then((video) => {
+        user.addVideo(video);
       });
       res.json("video created");
       // no redirect res.redirect(video.url);
@@ -59,7 +63,7 @@ exports.createVideoPost = [
  * likes will probably have to be robust and need their own model
  *
  */
-
+/*
 // PUT request to increment a videos likes
 exports.videoLikeIncrement = asyncHandler(async (req, res) => {
   await Video.increment({ likes: 1 }, { where: { id: req.body.id } });
@@ -71,6 +75,7 @@ exports.videoLikeDecrement = asyncHandler(async (req, res) => {
   await Video.increment({ likes: -1 }, { where: { id: req.body.id } });
   res.json("decremented likes");
 });
+*/
 
 // PUT request to increment a videos views
 exports.videoViewIncrement = asyncHandler(async (req, res) => {

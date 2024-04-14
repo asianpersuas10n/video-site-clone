@@ -19,8 +19,11 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Comment.associate = function (models) {
-    Comment.belongsTo(models.User);
-    Comment.belongsTo(models.Video);
+    Comment.belongsTo(models.User, {
+      through: { model: models.Video },
+      foreignKey: "userComments",
+      as: "userComment",
+    });
     Comment.hasMany(Comment, {
       foreignKey: "commentRepliesID",
       as: "headComment",

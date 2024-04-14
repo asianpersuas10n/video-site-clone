@@ -26,9 +26,14 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "uploadedVideoID",
       as: "uploadedVideo",
     });
+
     User.hasMany(models.Video, { foreignKey: "likesID", as: "likes" });
     User.hasMany(models.Video, { foreignKey: "dislikesID", as: "dislikes" });
-    User.hasMany(models.Comment);
+    User.belongsToMany(models.Comment, {
+      through: { model: models.Video },
+      foreignKey: "userComments",
+      as: "comments",
+    });
     User.hasMany(User, {
       foreignKey: "subscriber",
       as: "subscribers",

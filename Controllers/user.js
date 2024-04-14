@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const db = require("../Models");
 const User = db.User;
+const Video = db.Video;
 
 /*
  * example
