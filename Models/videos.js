@@ -14,10 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
-    likes: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-    },
     fireURL: {
       type: DataTypes.STRING,
     },
@@ -37,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Video.associate = function (models) {
     Video.belongsTo(models.User);
+    Video.belongsTo(models.Comment);
   };
 
   return Video;

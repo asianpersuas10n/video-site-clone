@@ -47,6 +47,70 @@ exports.subsribeToUser = asyncHandler(async (req, res) => {
   );
 });
 
+// PUT request to like a video
+exports.likeVideo = asyncHandler(async (req, res) => {
+  const user = await User.findOne({ where: { id: req.body.user.id } });
+  const video = await Video.findOne({ where: { id: req.body.video.id } });
+  const alreadyLiked = await user.hasLikes(video);
+  const alreadyDisliked = await user.hasDislikes(video);
+  let dislikedBool = false;
+
+  if (alreadyLiked) {
+    res.json(`${user.displayName} already liked ${video.title}`);
+  } else if (alreadyDisliked) {
+    await user.removeDislikes(video);
+    dislikedBool = true;
+  }
+
+  await user.addLikes(video);
+  res.json(
+    `${user.displayName} has liked ${video.title} ${
+      dislikedBool ? `and removed it from its dislike list` : ""
+    }`
+  );
+});
+
+// PUT request to remove a like from a video
+exports.removeVideoLike = asyncHandler(async (req, res) => {
+  const user = await User.findOne({ where: { id: req.body.user.id } });
+  const video = await Video.findOne({ where: { id: req.body.video.id } });
+  await user.removeLikes(video);
+  res.json(`${user.displayName} has removed ${video.title} from the like list`);
+});
+
+// PUT request to dislike a video
+exports.dislikeVideo = asyncHandler(async (req, res) => {
+  const user = await User.findOne({ where: { id: req.body.user.id } });
+  const video = await Video.findOne({ where: { id: req.body.video.id } });
+  const alreadyLiked = await user.hasLikes(video);
+  const alreadyDisliked = await user.hasDislikes(video);
+  let likedBool = false;
+
+  if (alreadyDisliked) {
+    res.json(`${user.displayName} already disliked ${video.title}`);
+  } else if (alreadyLiked) {
+    await user.removeLikes(video);
+    likedBool = true;
+  }
+
+  await user.addDislikes(video);
+  res.json(
+    `${user.displayName} has disliked ${video.title} ${
+      likedBool ? `and removed it from its like list` : ""
+    }`
+  );
+});
+
+// PUT request to remove a dislike from a video
+exports.removeVideoDislike = asyncHandler(async (req, res) => {
+  const user = await User.findOne({ where: { id: req.body.user.id } });
+  const video = await Video.findOne({ where: { id: req.body.video.id } });
+  await user.removeDislikes(video);
+  res.json(
+    `${user.displayName} has removed ${video.title} from the dislike list`
+  );
+});
+
 // GET request for getting a user
 exports.getUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({
