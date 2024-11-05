@@ -10,3 +10,11 @@ const Comment = db.Comment;
  *  res.json(whatever you needed to get here)
  * })
  */
+
+/*
+ * create comments
+ * edit comments
+ * delete comments
+ * create tie a comment to head comment
+ *
+ */

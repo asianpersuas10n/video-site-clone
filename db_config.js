@@ -1,8 +1,8 @@
 require("dotenv").config();
 
 module.exports = {
-  HOST: "localhost",
-  USER: "postgres",
+  HOST: process.env.PSQL_HOST,
+  USER: process.env.PSQL_USER,
   PASSWORD: process.env.PSQL_PASS,
   DB: "youtubedb",
   dialect: "postgres",
